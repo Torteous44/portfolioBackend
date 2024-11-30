@@ -9,7 +9,8 @@ app.use(express.json());
 app.use(cors());
 
 // MongoDB Connection
-const connectionString = 'mongodb+srv://mattporteous44:Matthew.4483@portfoliocluster.5y4a2.mongodb.net/?retryWrites=true&w=majority&appName=PortfolioCluster';
+require('dotenv').config();
+const connectionString = process.env.MONGO_URI;
 mongoose.connect(connectionString)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log('MongoDB connection error:', err));
