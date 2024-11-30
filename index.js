@@ -47,6 +47,20 @@ app.get('/count', async (req, res) => {
   }
 });
 
+// Reset Counter to Zero
+app.post('/reset', async (req, res) => {
+  try {
+    const counter = await Counter.findOneAndUpdate(
+      {},
+      { count: 0 },
+      { new: true, upsert: true } // Create if not exists
+    );
+    res.status(200).json({ message: 'Counter reset successfully', count: counter.count });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Default Route
 app.get('/', (req, res) => {
   res.send('Welcome to the portfolio backend!');
